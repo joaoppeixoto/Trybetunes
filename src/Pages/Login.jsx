@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { createUser } from './services/userAPI';
+import { createUser } from '../services/userAPI';
 
 class Login extends Component {
   constructor() {
@@ -32,7 +32,6 @@ class Login extends Component {
 
   render() {
     const { login, isDisabled } = this.state;
-    console.log(isDisabled);
     return (
 
       <div data-testid="page-login">
