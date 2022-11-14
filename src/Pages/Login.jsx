@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
 
 class Login extends Component {
   constructor() {
     super();
     this.state = {
-      login: '',
+      name: '',
       isDisabled: true,
+      loading: true,
     };
   }
 
@@ -16,49 +18,52 @@ class Login extends Component {
   };
 
   validateButton = () => {
-    const { login } = this.state;
+    const { name } = this.state;
     const number = 3;
-    const invalid = login.length < number;
+    const invalid = name.length < number;
     this.setState({
       isDisabled: invalid,
     });
   };
 
-  //   redirectSearch = (event) => {
-  //     event.preventDefault();
-  //     const { history } = this.props;
-  //     history.push('/search');
-  //   }
+  handleClick = async () => {
+    const { name } = this.state;
+    const { history} = this.props;
+    this.setState({ loading: false });
+    await createUser({ name });
+    this.setState({ loading: true });
+    history.push('/search');
+  };
 
   render() {
-    const { login, isDisabled } = this.state;
+    const { name, isDisabled, loading } = this.state;
     return (
 
       <div data-testid="page-login">
         Login
-        <form onSubmit={ createUser }>
-          <label htmlFor="login">
+        <form>
+          <label htmlFor="user">
             <input
               data-testid="login-name-input"
               placeholder="Digite seu login"
-              id="login"
+              id="user"
               type="text"
-              name="login"
-              value={ login }
+              name="name"
+              value={ name }
               onChange={ ({ target }) => this.handleChange(target) }
             />
           </label>
 
           <button
             data-testid="login-submit-button"
-            type="submit"
-            name="button"
+            type="button"
             disabled={ isDisabled }
+            onClick={ this.handleClick }
           >
             {' '}
             Entrar
           </button>
-
+          { !loading && <Loading />}
         </form>
       </div>
     );
