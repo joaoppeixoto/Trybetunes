@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Loading from '../components/Loading';
 import { createUser } from '../services/userAPI';
 
@@ -28,7 +29,7 @@ class Login extends Component {
 
   handleClick = async () => {
     const { name } = this.state;
-    const { history} = this.props;
+    const { history } = this.props;
     this.setState({ loading: false });
     await createUser({ name });
     this.setState({ loading: true });
@@ -69,5 +70,9 @@ class Login extends Component {
     );
   }
 }
+Login.propTypes = {
+  history: PropTypes.string.isRequired,
+
+};
 
 export default Login;
