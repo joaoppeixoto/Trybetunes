@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import Header from '../components/Header';
 import MusicCard from '../components/MusicCard';
 import getMusics from '../services/musicsAPI';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 class Album extends Component {
   state = {
     song: {},
     album: [],
+    favorites: [],
   };
 
   componentDidMount() {
@@ -19,15 +21,16 @@ class Album extends Component {
     const responseMusics = await getMusics(id);
     const spreadMusic = [...responseMusics];
     const firstMusic = spreadMusic.shift();
-    console.log(firstMusic);
+    const saveFavorites = await getFavoriteSongs();
     this.setState({
       song: firstMusic,
       album: spreadMusic,
+      favorites: saveFavorites,
     });
   };
 
   render() {
-    const { song, album } = this.state;
+    const { song, album, favorites } = this.state;
     return (
       <div data-testid="page-album">
 
@@ -44,6 +47,7 @@ class Album extends Component {
               trackName={ music.trackName }
               preview={ music.previewUrl }
               trackId={ music.trackId }
+              favorites={ favorites }
 
             />
           ))
