@@ -17,12 +17,14 @@ class MusicCard extends Component {
     this.setState({ loading: false });
     if (checked) {
       this.setState({ check: true });
-    } this.setState({ check: false });
+    } else {
+      this.setState({ check: false });
+    }
   };
 
   render() {
     const { check, loading } = this.state;
-    const { trackId, previewUrl, trackName } = this.props;
+    const { trackId, preview, trackName } = this.props;
     return (
       <div>
         MusicCard
@@ -30,7 +32,7 @@ class MusicCard extends Component {
         <div>{trackName}</div>
         <audio
           data-testid="audio-component"
-          src={ previewUrl }
+          src={ preview }
           controls
         >
           <track kind="captions" />
@@ -47,7 +49,7 @@ class MusicCard extends Component {
             id={ `checkbox-music-${trackId}` }
             type="checkbox"
             checked={ check }
-            onClick={ this.handleChange }
+            onChange={ this.handleChange }
 
           />
         </label>
@@ -60,6 +62,6 @@ MusicCard.propTypes = {
   song: PropTypes.arrayOf.isRequired,
   trackId: PropTypes.number.isRequired,
   trackName: PropTypes.string.isRequired,
-  previewUrl: PropTypes.string.isRequired,
+  preview: PropTypes.string.isRequired,
 };
 export default MusicCard;

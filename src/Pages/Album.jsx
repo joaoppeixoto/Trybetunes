@@ -43,6 +43,7 @@ class Album extends Component {
               song={ music }
               trackName={ music.trackName }
               preview={ music.previewUrl }
+              trackId={ music.trackId }
 
             />
           ))
@@ -53,7 +54,7 @@ class Album extends Component {
 }
 Album.propTypes = {
   id: PropTypes.string.isRequired,
-  match: PropTypes.objectOf.isRequired,
-  params: PropTypes.string.isRequired,
+  match: PropTypes.arrayOf.isRequired,
+  params: PropTypes.objectOf.isRequired,
 };
 export default Album;
