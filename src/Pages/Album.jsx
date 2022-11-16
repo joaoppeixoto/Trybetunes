@@ -18,13 +18,13 @@ class Album extends Component {
 
   validateMusic = async () => {
     const { match: { params: { id } } } = this.props;
-    const responseMusics = await getMusics(id);
-    const spreadMusic = [...responseMusics];
-    const firstMusic = spreadMusic.shift();
+    const response = await getMusics(id);
+    const spread = [...response];
+    const handleFirstElement = spread.shift();
     const saveFavorites = await getFavoriteSongs();
     this.setState({
-      song: firstMusic,
-      album: spreadMusic,
+      song: handleFirstElement,
+      album: spread,
       favorites: saveFavorites,
     });
   };
