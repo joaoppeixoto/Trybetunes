@@ -23,8 +23,8 @@ class Album extends Component {
     const handleFirstElement = spread.shift();
     const saveFavorites = await getFavoriteSongs();
     this.setState({
-      song: handleFirstElement,
       album: spread,
+      song: handleFirstElement,
       favorites: saveFavorites,
     });
   };
